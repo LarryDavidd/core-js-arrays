@@ -140,7 +140,7 @@ function getAverage(arr) {
 function isSameLength(arr) {
   return (
     arr.length <= 1 ||
-    arr.every((element, index, array) => element.length === array[0].length)
+    arr.every((element, _, array) => element.length === array[0].length)
   );
 }
 
