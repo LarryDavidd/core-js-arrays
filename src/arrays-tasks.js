@@ -467,25 +467,7 @@ function getHexRGBValues(arr) {
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
 function getMaxItems(arr, n) {
-  const result = [];
-
-  if (arr.length === 0) {
-    return result;
-  }
-
-  if (n === 1) {
-    result.push(Math.max(...arr));
-    return result;
-  }
-
-  result.push(Math.max(...arr));
-
-  // вырезаем прошлый максимум:
-
-  const index = arr.indexOf(Math.max(...arr));
-  const newArray = arr.slice(0, index).concat(arr.slice(index + 1));
-
-  return result.concat(getMaxItems(newArray, n - 1));
+  return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 /**
@@ -551,12 +533,10 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
 function shiftArray(arr, n) {
-  if (n > 0) {
-    // сдвиг вправо
-    return arr.slice(n + 1).concat(arr.slice(0, n + 1));
+  if (n < 0) {
+    return arr.concat(arr.splice(0, Math.abs(n)));
   }
-  // сдвиг влево
-  return arr.slice(Math.abs(n)).concat(arr.slice(0, Math.abs(n)));
+  return arr.concat(arr.splice(arr.length - n, n));
 }
 
 /**
